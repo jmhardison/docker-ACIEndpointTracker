@@ -1,8 +1,8 @@
 #Dockerfile for creating the web tier of ACI Endpoint Tracker
+#You only need one of these containers running to harvest information from ACI.
+#Other containers you may want are a GUI front end and the actual MySQL DB container.
 FROM python:latest
 MAINTAINER Jonathan Hardison <jmh@jonathanhardison.com>
-
-EXPOSE 80 443
 
 #Environment Variables - these should be provided at runtime instead based on actual deployment.
 ENV APICURL http://127.0.0.1
@@ -19,6 +19,6 @@ RUN cd /var && \
     cd acitoolkit && \
     python setup.py install
 
-CMD ["sh", "-c", "python /var/acitoolkit/aci-endpoint-tracker.py -u ${APICURL} -l ${APICUSERNAME} -p ${APICPASSWORD} -i ${MYSQLIP} -a ${MYSQLADMINLOGIN} -s ${MYSQLPASSWORD}"]
+CMD ["sh", "-c", "python /var/acitoolkit/applications/endpointtracker/aci-endpoint-tracker.py -u ${APICURL} -l ${APICUSERNAME} -p ${APICPASSWORD} -i ${MYSQLIP} -a ${MYSQLADMINLOGIN} -s ${MYSQLPASSWORD}"]
 
 
