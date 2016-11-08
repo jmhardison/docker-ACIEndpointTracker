@@ -1,4 +1,5 @@
-#Docker ACI Endpoint Tracker
+[![](https://images.microbadger.com/badges/version/jhardison/aciendpointtracker.svg)](https://microbadger.com/images/jhardison/aciendpointtracker "Get your own version badge on microbadger.com")
+# Docker ACI Endpoint Tracker
 Cisco ACI Endpoint Tracker, leveraging ACIToolkit.
 
 This dockerfile provides the ability to launch either a polling agent or a GUI Server.
@@ -22,7 +23,7 @@ The following environment variables must be defined based on mode.
 
 In the case that the GUI variable is not defined, it will default to a polling agent.
 
-##Provision MySQL
+## Provision MySQL
 Both the polling agent and the GUI server require access to the same backend MySQL server(s). The following deployment
 is not indicative of full production impelemntations, but is an example start. This method of deployment will map the
 database storage location to an external path allowing upgrades of MySQL to occurr without losing data. (Ensure you still
