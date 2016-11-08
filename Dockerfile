@@ -5,14 +5,17 @@ FROM ubuntu:16.04
 MAINTAINER Jonathan Hardison <jmh@jonathanhardison.com>
 
 #Environment Variables - these should be provided at runtime instead based on actual deployment.
-#ENV APICURL http://127.0.0.1
-#ENV APICUSERNAME replaceuser
-#ENV APICPASSWORD replacepass
-#ENV MYSQLIP 127.0.0.1
-#ENV MYSQLADMINLOGIN mysqluser
-#ENV MYSQLPASSWORD MYSQLPASSWORD
+#ENV APICURL http://ipofapic or https://fqdnofasic
+#ENV APICUSERNAME APICUserText
+#ENV APICPASSWORD APICPasswordText
+#ENV MYSQLIP IPofMYSQLServer
+#ENV MYSQLADMINLOGIN UserText
+#ENV MYSQLPASSWORD PasswordText
+#ENV GUI TRUE/FALSE
 
 ENV DEBIAN_FRONTEND noninteractive
+
+ADD ./startup.sh /usr/local/bin/startup.sh
 
 #performing a download of tar instead of clone to try and reduce file size of images.
 RUN apt-get update && apt-get -y install curl python python-pip && \
@@ -20,12 +23,14 @@ RUN apt-get update && apt-get -y install curl python python-pip && \
     curl -o acitoolkit.tar.gz https://codeload.github.com/datacenter/acitoolkit/legacy.tar.gz/master && \
     mkdir acitoolkit && \
     tar -xzvf acitoolkit.tar.gz -C ./acitoolkit --strip-components=1 && \
-    mv acitoolkit/ /var/acitoolkit/ && \
-    cd /var/acitoolkit && \ 
+    mv acitoolkit/ /usr/local/bin/acitoolkit/ && \
+    cd /usr/local/bin/acitoolkit && \ 
     python setup.py install && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    apt-get -y remove curl python-pip && apt-get -y autoremove && apt-get clean 
+    apt-get -y remove curl python-pip && apt-get -y autoremove && apt-get clean && \
+    chmod +x /usr/local/bin/startup.sh
 
-CMD ["sh", "-c", "python /var/acitoolkit/applications/endpointtracker/aci-endpoint-tracker.py -u ${APICURL} -l ${APICUSERNAME} -p ${APICPASSWORD} -i ${MYSQLIP} -a ${MYSQLADMINLOGIN} -s ${MYSQLPASSWORD}"]
+#launch command is startup.sh which drives the logic to use either GUI or Polling Agent.
+CMD ["/usr/local/bin/startup.sh"]
 
 
