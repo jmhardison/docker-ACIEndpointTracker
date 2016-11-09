@@ -5,7 +5,7 @@ FROM ubuntu:16.04
 MAINTAINER Jonathan Hardison <jmh@jonathanhardison.com>
 
 #expose these ports for when operating as a GUI server.
-EXPOSE 5000
+EXPOSE 80
 
 #Environment Variables - these should be provided at runtime instead based on actual deployment.
 #ENV APICURL http://ipofapic or https://fqdnofasic
@@ -23,7 +23,7 @@ ADD ./startup.sh /usr/local/bin/startup.sh
 #performing a download of tar instead of clone to try and reduce file size of images.
 RUN apt-get update && apt-get -y install curl python python-pip && \
     cd /tmp && \
-    curl -o acitoolkit.tar.gz https://codeload.github.com/datacenter/acitoolkit/legacy.tar.gz/master && \
+    curl -o acitoolkit.tar.gz https://codeload.github.com/jmhardison/acitoolkit/legacy.tar.gz/jmhardison-patch-1-timestop && \
     mkdir acitoolkit && \
     tar -xzvf acitoolkit.tar.gz -C ./acitoolkit --strip-components=1 && \
     mv acitoolkit/ /usr/local/bin/acitoolkit/ && \
