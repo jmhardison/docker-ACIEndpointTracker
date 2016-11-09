@@ -5,7 +5,7 @@ FROM ubuntu:16.04
 MAINTAINER Jonathan Hardison <jmh@jonathanhardison.com>
 
 #expose these ports for when operating as a GUI server.
-EXPOSE 5000
+EXPOSE 80
 
 #Environment Variables - these should be provided at runtime instead based on actual deployment.
 #ENV APICURL http://ipofapic or https://fqdnofasic
