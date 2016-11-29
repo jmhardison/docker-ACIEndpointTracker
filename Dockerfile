@@ -23,7 +23,7 @@ ADD ./startup.sh /usr/local/bin/startup.sh
 #performing a download of tar instead of clone to try and reduce file size of images.
 RUN apt-get update && apt-get -y install curl python python-pip && \
     cd /tmp && \
-    curl -o acitoolkit.tar.gz https://codeload.github.com/jmhardison/acitoolkit/legacy.tar.gz/jmhardison-patch-1-timestop && \
+    curl -o acitoolkit.tar.gz https://codeload.github.com/datacenter/acitoolkit/legacy.tar.gz && \
     mkdir acitoolkit && \
     tar -xzvf acitoolkit.tar.gz -C ./acitoolkit --strip-components=1 && \
     mv acitoolkit/ /usr/local/bin/acitoolkit/ && \
