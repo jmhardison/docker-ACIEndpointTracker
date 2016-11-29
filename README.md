@@ -24,8 +24,7 @@ The following environment variables must be defined based on mode.
 In the case that the GUI variable is not defined, it will default to a polling agent.
 
 ## Create Environment File (Optional)
-To simplify command lines below, you can utilize an environment variable file to supply variables to containers. This file
-provides a simple NAME=VALUE listing.
+To simplify command lines below, you can utilize an environment variable file to supply variables to containers. This file provides a simple NAME=VALUE listing.
 
   * Create a file under /opt/ or a path of your choosing called acienv.list and ensure it has the following contents.
   
@@ -40,10 +39,7 @@ provides a simple NAME=VALUE listing.
   
 
 ## Provision MySQL
-Both the polling agent and the GUI server require access to the same backend MySQL server(s). The following deployment
-is not indicative of full production impelemntations, but is an example start. This method of deployment will map the
-database storage location to an external path allowing upgrades of MySQL to occurr without losing data. (Ensure you still
-backup as required for retention.)
+Both the polling agent and the GUI server require access to the same backend MySQL server(s). The following deployment is not indicative of full production impelemntations, but is an example start. This method of deployment will map the database storage location to an external path allowing upgrades of MySQL to occurr without losing data. (Ensure you still backup as required for retention.)
 
   - Create DB File path
     
